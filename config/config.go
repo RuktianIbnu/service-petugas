@@ -14,5 +14,8 @@ func DBInit() *gorm.DB{
 
 	db.AutoMigrate(structs.EditPermohonan{})
 	db.AutoMigrate(structs.ReviewPetugas{})
+	db.AutoMigrate(structs.Ip_Address{})
+	db.AutoMigrate(structs.Management{})
+	db.AutoMigrate(structs.Spesifikasi{})
 	return db
 }
