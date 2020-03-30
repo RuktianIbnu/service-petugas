@@ -8,9 +8,11 @@ type ReviewPetugas struct {
 	UpdatedAt time.Time  `json:"-"`
 	DeletedAt *time.Time `json:"-" sql:"index"`
 
+	ID_permohonan			string
 	ID_petugas 				string
 	ID_struktural_Approval 	string
 	Status_review			string
+	Id_review				string
 
 }
 

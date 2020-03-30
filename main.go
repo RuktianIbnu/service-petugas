@@ -12,6 +12,8 @@ func main(){
 	inDB := &module.InDB{DB: db}
 	router := gin.Default()
 
-	router.POST("/service-petugas/simpanperubahan-data", inDB.InsertDataPerubahan)
+	router.POST("/service-petugas/simpan-DataPerubahan", inDB.InsertDataPerubahan)
+	router.POST("/service-petugas/simpan-DataReview", inDB.InsertReview2)
+	router.GET("/service-petugas/Cari-SemuaDataReview", inDB.GetAllData)
 	router.Run(":3400")
 }
