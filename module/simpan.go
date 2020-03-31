@@ -3,8 +3,6 @@ package module
 import (
 	"net/http"
     "../structs"
-    "math/rand"
-    "strconv"
     "context"
     "github.com/nbys/asyncwork/worker"
     
@@ -81,16 +79,16 @@ func (idb *InDB) InsertReview(c *gin.Context){
         dataIP structs.Ip_Address
         dataManagement structs.Management
         dataSpesifikasi structs.Spesifikasi
+
+        hasil gin.H
 	)
 
     ID_permohonan     	    := c.PostForm("id_permohonan")
 	ID_petugas     	        := c.PostForm("id_petugas")
     Status_review           := "NEW"
-    Id_review               := rand.Intn(1000)
     data.ID_permohonan      = ID_permohonan
     data.ID_petugas         = ID_petugas
     data.Status_review      = Status_review
-    data.Id_review          = strconv.Itoa(Id_review)
 
     Ip_address              := c.PostForm("ip_address")
     Ip_public               := c.PostForm("ip_public")
@@ -104,7 +102,7 @@ func (idb *InDB) InsertReview(c *gin.Context){
     dataIP.Netmask          = Netmask
     dataIP.Geteway          = Geteway
     dataIP.Dns              = Dns
-    dataIP.Id_review        = strconv.Itoa(Id_review)
+    dataIP.ID_permohonan    = ID_permohonan
 
     Ip_address_management           := c.PostForm("ip_address_management")
     Username_management             := c.PostForm("username_management")
@@ -118,7 +116,7 @@ func (idb *InDB) InsertReview(c *gin.Context){
     dataManagement.Netmask          = Netmask_management
     dataManagement.Geteway          = Geteway_management
     dataManagement.Dns              = Dns_management
-    dataManagement.Id_review        = strconv.Itoa(Id_review)
+    dataManagement.ID_permohonan    = ID_permohonan
 
     Jenis_server                    := c.PostForm("jenis_server")
     Os                              := c.PostForm("os")
@@ -128,7 +126,7 @@ func (idb *InDB) InsertReview(c *gin.Context){
     dataSpesifikasi.Os              = Os
     dataSpesifikasi.Ram             = Ram
     dataSpesifikasi.Storage         = Storage
-    dataSpesifikasi.Id_review       = strconv.Itoa(Id_review)
+    dataSpesifikasi.ID_permohonan   = ID_permohonan
 
     valid := CekAuth(c)
 
@@ -160,24 +158,25 @@ func (idb *InDB) InsertReview(c *gin.Context){
         for result := range resultChannel {
             switch {
             case result == "error":
-                c.JSON(http.StatusInternalServerError, gin.H {
-                    "pesan": "gagal simpan data",
-                    "status": "error",
-                })
+                hasil = gin.H {
+                    "status": "warning!",
+                        "pesan": "Silahkan lengkapi lembar isian",
+                }
                 cancel()
                 return
             case result == "success":
-                c.JSON(http.StatusOK, gin.H {
-                    "status": "success",
-                    "pesan": "Data berhasil di simpan",
-                })
+                hasil = gin.H {
+                        "pesan": "Berhasil",
+                        "status": result,
+                }
             default:
-                c.JSON(http.StatusInternalServerError, gin.H {
+                hasil = gin.H {
                     "pesan": "gagal",
                     "status": "error",
                     "result": result,
-                })
+                }
             }
+            c.JSON(http.StatusOK, hasil)
         }
     } else {
         c.JSON(http.StatusOK, gin.H {

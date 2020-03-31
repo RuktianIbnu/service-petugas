@@ -12,8 +12,6 @@ type ReviewPetugas struct {
 	ID_petugas 				string
 	ID_struktural_Approval 	string
 	Status_review			string
-	Id_review				string
-
 }
 
 func (ReviewPetugas) ReviewPetugas()string{
@@ -21,13 +19,13 @@ func (ReviewPetugas) ReviewPetugas()string{
 }
 
 type Ip_Address struct {
-	Id_review 	string
-	Ip_address 	string
-	Ip_public 	string
-	Hostname	string
-	Netmask		string
-	Geteway		string
-	Dns			string
+	ID_permohonan 	string
+	Ip_address 		string
+	Ip_public 		string
+	Hostname		string
+	Netmask			string
+	Geteway			string
+	Dns				string
 
 	CreatedAt time.Time  `json:"-"`
 	UpdatedAt time.Time  `json:"-"`
@@ -39,13 +37,13 @@ func (Ip_Address) Ip_Address()string{
 }
 
 type Management struct {
-	Id_review 	string
-	Ip_address 	string
-	Netmask		string
-	Geteway		string
-	Dns			string
-	Username	string
-	Password	string
+	ID_permohonan 	string
+	Ip_address 		string
+	Netmask			string
+	Geteway			string
+	Dns				string
+	Username		string
+	Password		string
 
 	CreatedAt time.Time  `json:"-"`
 	UpdatedAt time.Time  `json:"-"`
@@ -57,7 +55,7 @@ func (Management) Management()string{
 }
 
 type Spesifikasi struct {
-	Id_review 		string
+	ID_permohonan 	string
 	Jenis_server	string
 	Os				string
 	Ram				string

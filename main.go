@@ -13,7 +13,6 @@ func main(){
 	router := gin.Default()
 
 	router.POST("/service-petugas/simpan-DataPerubahan", inDB.InsertDataPerubahan)
-	router.POST("/service-petugas/simpan-DataReview", inDB.InsertReview2)
-	router.GET("/service-petugas/Cari-SemuaDataReview", inDB.GetAllData)
+	router.POST("/service-petugas/simpan-DataReview", inDB.InsertReview)
 	router.Run(":3400")
 }
